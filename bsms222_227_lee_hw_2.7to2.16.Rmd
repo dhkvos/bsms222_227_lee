@@ -3,7 +3,7 @@ title: "R Notebook"
 output: html_notebook
 ---
 
-2.7 Coercion
+## 2.7 Coercion
 
 In general, coercion is an attempt by R to be flexible with data types. When an entry does not match the expected, some of the prebuilt R functions try to guess what was meant before throwing an error. This can also lead to confusion. Failing to understand coercion can drive programmers crazy when attempting to code in R since it behaves quite differently from most other languages in this regard. Let’s learn about it with some examples.
 
@@ -30,7 +30,7 @@ as.numeric(y)
 ```
 This function is actually quite useful since datasets that include numbers as character strings are common.
 
-2.7.1 Not availables (NA)
+### 2.7.1 Not availables (NA)
 
 When a function tries to coerce one type to another and encounters an impossible case, it usually gives us a warning and turns the entry into a special value called an ```NA``` for “not available”. For example:
 ```{r, eval = F}
@@ -40,7 +40,7 @@ as.numeric(x)
 R does not have any guesses for what number you want when you type ```b```, so it does not try.
 As a data scientist you will encounter the ```NA```s often as they are generally used for missing data, a common problem in real-world datasets.
 
-2.8 Exercises
+## 2.8 Exercises
 
 1. Use the function ```c``` to create a vector with the average high temperature in January for Beijing, Lagos, Paris, Rio d e Janeiro, san Juan, and Toronto, which are 35,88,42,84,81, and 30 degrees Fahrenheit. Call the object ```temp```.
 
@@ -115,11 +115,11 @@ x <- as.integer(x)
 class(x)
 ```
 
-2.9 Sorting
+## 2.9 Sorting
 
 Now that we have mastered some basic R knowledge, let’s try to gain some insights into the safety of different states in the context of gun murders.
 
-2.9.1 ```sort```
+### 2.9.1 ```sort```
 
 Say we want to rank the states from least to most gun murders. The function ```sort``` sorts a vector in increasing order. We can therefore see the largest number of gun murders by typing:
 ```{r}
@@ -129,7 +129,7 @@ sort(murders$total)
 ```
 However, this does not give us information about which states have which murder totals. For example, we don’t know which state had 1257.
 
-2.9.2 ```order```
+### 2.9.2 ```order```
 
 The function ```order``` is closer to what we want. It takes a vector as input and returns the vector of indexes that sorts the input vector. This may sound confusing so let’s look at a simple example. We can create a vector and sort it:
 ```{r}
@@ -160,7 +160,7 @@ murders$abb[ind]
 ```
 According to the above, California had the most murders.
 
-2.9.3 ```max``` and ```which.max```
+### 2.9.3 ```max``` and ```which.max```
 
 If we are only interested in the entry with the largest value, we can use ```max``` for the value:
 ```{r}
@@ -175,7 +175,7 @@ For the minimum, we can use ```min``` and ```which.min``` in the same way.
 
 Does this mean California is the most dangerous state? In an upcoming section, we argue that we should be considering rates instead of totals. Before doing that, we introduce one last order-related function: ```rank```.
 
-2.9.4 ```rank```
+### 2.9.4 ```rank```
 
 Although not as frequently used as ```order``` and ```sort```, the function ```rank``` is also related to order and can be useful. For any given vector it returns a vector with the rank of the first entry, second entry, etc., of the input vector. Here is a simple example:
 ```{r}
@@ -184,7 +184,7 @@ rank(x)
 ```
 To summarize, let’s look at the results of the three functions we have introduced: ~
 
-2.9.5 Beware of recycling
+### 2.9.5 Beware of recycling
 
 Another common source of unnoticed errors in R is the use of recycling. We saw that vectors are added elementwise. So if the vectors don’t match in length, it is natural to assume that we should get an error. But we don’t. Notice what happens:
 ```{r, eval = F}
@@ -194,7 +194,7 @@ x+y
 ```
 We do get a warning, but no error. For the output, R has recycled the numbers in ```x```. Notice the last digit of numbers in the output.
 
-2.10 Exercises
+## 2.10 Exercises
 
 For these exercises we will use the US murders dataset. Make sure you load it prior to starting.
 ```{r}
@@ -274,7 +274,7 @@ ind
 mean(na_example, na.rm=TRUE)
 ```
 
-2.11 Vector arithmetics
+## 2.11 Vector arithmetics
 
 California had the most murders, but does this mean it is the most dangerous state? What if it just has many more people than any other state? We can quickly confirm that California indeed has the largest population:
 
@@ -285,7 +285,7 @@ murders$state[which.max(murders$population)]
 ```
 with over 37 million inhabitants. It is therefore unfair to compare the totals if we are interested in learning how safe the state is. What we really should be computing is the murders per capita. The reports we describe in the motivating section used murders per 100,000 as the unit. To compute this quantity, the powerful vector arithmetic capabilities of R come in handy.
 
-2.11.1 Rescaling a vector
+### 2.11.1 Rescaling a vector
 
 In R, arithmetic operations on vectors occur element-wise. For a quick example, suppose we have height in inches:
 ```{r}
@@ -300,7 +300,7 @@ In the line above, we multiplied each element by 2.54. Similarly, if for each en
 inches - 69
 ```
 
-2.11.2 Two vectors
+### 2.11.2 Two vectors
 
 If we have two vectors of the same length, and we sum them in R, they will be added entry by entry as follows: ~
 
@@ -315,7 +315,7 @@ Once we do this, we notice that California is no longer near the top of the list
 murders$abb[order(murder_rate)]
 ```
 
-2.12 Exercises
+## 2.12 Exercises
 
 1. Previously we created this data frame:
 ```{r}
@@ -348,7 +348,7 @@ murder_rate <- murders$total / murders$population * 100000
 mean(murder_rate)
 ```
 
-2.13 Indexing
+## 2.13 Indexing
 
 R provides a powerful and convenient way of indexing vectors. We can, for example, subset a vector based on properties of another vector. In this section, we continue working with our US murders example, which we can load like this:
 ```{r}
@@ -356,7 +356,7 @@ library(dslabs)
 data("murders")
 ```
 
-2.13.1 Subsetting with logicals
+### 2.13.1 Subsetting with logicals
 
 We have now calculated the murder rate using:
 ```{r}
@@ -380,7 +380,7 @@ In order to count how many are TRUE, the function ```sum``` returns the sum of t
 sum(ind)
 ```
 
-2.13.2 Logical operators
+### 2.13.2 Logical operators
 
 Suppose we like the mountains and we want to move to a safe state in the western region of the country. We want the murder rate to be at most 1. In this case, we want two different things to be true. Here we can use the logical operator and, which in R is represented with ```&```. This operation results in ```TRUE``` only when both logicals are ```TRUE```. To see this, consider this example:
 ```{r}
@@ -398,7 +398,7 @@ and we can use the ```&``` to get a vector of logicals that tells us which state
 ind <- safe & west
 murders$state[ind]
 ```
-2.13.2 ```which```
+### 2.13.3 ```which```
 
 Suppose we want to look up California’s murder rate. For this type of operation, it is convenient to convert vectors of logicals into indexes instead of keeping long vectors of logicals. The function ```which``` tells us which entries of a logical vector are TRUE. So we can type:
 ```{r}
@@ -406,7 +406,7 @@ ind <- which(murders$state == "California")
 murder_rate[ind]
 ```
 
-2.13.4 ```match```
+### 2.13.4 ```match```
 
 If instead of just one state we want to find out the murder rates for several states, say New York, Florida, and Texas, we can use the function ```match```. This function tells us which indexes of a second vector match each of the entries of a first vector:
 ```{r}
@@ -419,7 +419,7 @@ Now we can look ate the murder rates:
 murder_rate[ind]
 ```
 
-2.13.5 ```%in%```
+### 2.13.5 ```%in%```
 
 If rather than an index we want a logical that tells us whether or not each element of a first vector is in a second, we can use the function ```%in%```. Let’s imagine you are not sure if Boston, Dakota, and Washington are states. You can find out like this:
 
@@ -435,7 +435,7 @@ match(c("New York", "Florida", "Texas"), murders$state)
 which(murders$state%in%c("New York", "Florida", "Texas"))
 ```
 
-2.14 Exercises
+## 2.14 Exercises
 
 Start by loading the library and data.
 ```{r}
@@ -493,11 +493,11 @@ indd <- which(ind == TRUE)
 indd
 ```
 
-2.15 Basic plots
+## 2.15 Basic plots
 
 In Chapter 7 we describe an add-on package that provides a powerful approach to producing plots in R. We then have an entire part on Data Visualization in which we provide many examples. Here we briefly describe some of the functions that are available in a basic R installation.
 
-2.15.1 ```plot```
+### 2.15.1 ```plot```
 
 The ```plot``` function can be used to make scatterplots. Here is a plot of total murders versus population.
 
@@ -515,7 +515,7 @@ with(murders, plot(population, total))
 
 The function ```with``` lets us use the ```murders``` column names in the ```plot``` function. It also works with any data frames and any function.
 
-2.15.2 ```hist```
+### 2.15.2 ```hist```
 
 We will describe histograms as they relate to distributions in the Data Visualization part of the book. Here we will simply note that histograms are a powerful graphical summary of a list of numbers that gives you a general overview of the types of values you have. We can make a histogram of our murder rates by simply typing:
 ```{r}
@@ -528,7 +528,7 @@ We can see that there is a wide range of values with most of them between 2 and 
 murders$state[which.max(x)]
 ```
 
-2.15.3 ```boxplot```
+### 2.15.3 ```boxplot```
 
 Boxplots will also be described in the Data Visualization part of the book. They provide a more terse summary than histograms, but they are easier to stack with other boxplots. For example, here we can use them to compare the different regions:
 ```{r}
@@ -538,7 +538,7 @@ boxplot(rate~region, data = murders)
 
 We can see that the South has higher murder rates than the other three regions.
 
-2.15.4 ```image```
+### 2.15.4 ```image```
 
 The image function displays the values in a matrix using color. Here is a quick example:
 ```{r}
@@ -546,7 +546,7 @@ x <- matrix(1:120, 12, 10)
 image(x)
 ```
 
-2.16 Exercises
+## 2.16 Exercises
 
 1. We made a plot of total murders versus population and noted a strong relationship. Not surprisingly, states with larger populations had more murders.
 
